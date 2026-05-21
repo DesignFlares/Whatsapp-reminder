@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>WhatsApp Reminder System</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, sans-serif;
+        }
+
+        body{
+            background:#0f172a;
+            color:white;
+            min-height:100vh;
+            padding:40px;
+        }
+
+        .container{
+            max-width:800px;
+            margin:auto;
+            background:#1e293b;
+            padding:30px;
+            border-radius:20px;
+            box-shadow:0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        h1{
+            text-align:center;
+            margin-bottom:30px;
+            color:#38bdf8;
+        }
+
+        .status{
+            text-align:center;
+            margin-bottom:25px;
+            font-size:18px;
+            font-weight:bold;
+        }
+
+        .running{
+            color:#22c55e;
+        }
+
+        .stopped{
+            color:#ef4444;
+        }
+
+        .qr-container{
+            text-align:center;
+            margin-bottom:30px;
+        }
+
+        .qr-container img{
+            width:250px;
+            border-radius:15px;
+            background:white;
+            padding:10px;
+        }
+
+        .qr-container p{
+            margin-top:10px;
+        }
+
+        form{
+            margin-bottom:20px;
+        }
+
+        input{
+            width:100%;
+            padding:14px;
+            margin-bottom:15px;
+            border:none;
+            border-radius:10px;
+            background:#334155;
+            color:white;
+            font-size:15px;
+        }
+
+        input::placeholder{
+            color:#cbd5e1;
+        }
+
+        button{
+            border:none;
+            padding:12px 20px;
+            border-radius:10px;
+            cursor:pointer;
+            font-size:15px;
+            font-weight:bold;
+            transition:0.3s;
+        }
+
+        button:hover{
+            opacity:0.9;
+        }
+
+        .add-btn{
+            width:100%;
+            background:#38bdf8;
+            color:black;
+        }
+
+        .controls{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:15px;
+            margin-bottom:30px;
+        }
+
+        .start-btn{
+            width:100%;
+            background:#22c55e;
+            color:white;
+        }
+
+        .stop-btn{
+            width:100%;
+            background:#ef4444;
+            color:white;
+        }
+
+        .reminders{
+            margin-top:20px;
+        }
+
+        .card{
+            background:#334155;
+            padding:20px;
+            border-radius:15px;
+            margin-bottom:15px;
+        }
+
+        .card p{
+            margin-bottom:10px;
+            word-break:break-word;
+        }
+
+        .delete-btn{
+            background:#f97316;
+            color:white;
+            margin-top:10px;
+        }
+
+        .empty{
+            text-align:center;
+            color:#94a3b8;
+            margin-top:20px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>WhatsApp Reminder System</h1>
+
+        <div class="status">
+
+            <% if(isRunning){ %>
+
+                <span class="running">
+                    System Running
+                </span>
+
+            <% } else { %>
+
+                <span class="stopped">
+                    System Stopped
+                </span>
+
+            <% } %>
+
+        </div>
+
+        <!-- QR CODE -->
+
+        <% if(qrImage){ %>
+
+            <div class="qr-container">
+
+                <img
+                    src="<%= qrImage %>"
+                    alt="QR Code"
+                >
+
+                <p>
+                    Scan QR To Connect WhatsApp
+                </p>
+
+            </div>
+
+        <% } %>
+
+        <!-- ADD REMINDER FORM -->
+
+        <form action="/add" method="POST">
+
+            <input
+                type="text"
+                name="number"
+                placeholder="918240262612@c.us"
+                required
+            >
+
+            <input
+                type="text"
+                name="message"
+                placeholder="Enter Reminder Message"
+                required
+            >
+
+            <button class="add-btn">
+                Add Reminder
+            </button>
+
+        </form>
+
+        <!-- START / STOP -->
+
+        <div class="controls">
+
+            <form action="/start">
+
+                <button class="start-btn">
+                    Start Reminder
+                </button>
+
+            </form>
+
+            <form action="/stop">
+
+                <button class="stop-btn">
+                    Stop Reminder
+                </button>
+
+            </form>
+
+        </div>
+
+        <!-- REMINDERS -->
+
+        <div class="reminders">
+
+            <% if(reminders.length === 0){ %>
+
+                <div class="empty">
+
+                    No Reminders Added
+
+                </div>
+
+            <% } %>
+
+            <% reminders.forEach(reminder => { %>
+
+                <div class="card">
+
+                    <p>
+
+                        <strong>Number:</strong>
+
+                        <%= reminder.number %>
+
+                    </p>
+
+                    <p>
+
+                        <strong>Message:</strong>
+
+                        <%= reminder.message %>
+
+                    </p>
+
+                    <a
+                        href="/delete/<%= reminder.number %>"
+                    >
+
+                        <button class="delete-btn">
+
+                            Delete
+
+                        </button>
+
+                    </a>
+
+                </div>
+
+            <% }) %>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
