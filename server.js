@@ -101,31 +101,30 @@ const client = new Client({
         clientId: 'main-client'
     }),
 
-    puppeteer: {
+   puppeteer: {
 
-        headless: true,
+    headless: true,
 
-        executablePath:
-        process.env.PUPPETEER_EXECUTABLE_PATH ||
-        puppeteer.executablePath(),
+    executablePath:
+    puppeteer.executablePath(),
 
-        args: [
+    args: [
 
-            '--no-sandbox',
+        '--no-sandbox',
 
-            '--disable-setuid-sandbox',
+        '--disable-setuid-sandbox',
 
-            '--disable-dev-shm-usage',
+        '--disable-dev-shm-usage',
 
-            '--disable-gpu',
+        '--disable-gpu',
 
-            '--single-process',
+        '--single-process',
 
-            '--no-zygote'
+        '--no-zygote'
 
-        ]
+    ]
 
-    }
+}
 
 });
 
