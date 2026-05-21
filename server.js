@@ -433,9 +433,11 @@ SERVER
 -----------------------------------
 */
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
 
-    console.log(`\nServer Running On Port ${PORT}\n`);
+    console.log(
+        `Server Running On Port ${PORT}`
+    );
 
 });
 
