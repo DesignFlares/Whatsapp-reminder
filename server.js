@@ -184,11 +184,11 @@ setTimeout(() => {
 /*
 -----------------------------------
 CRON JOB
-Every 1 Minute For Testing
+Every 30 Minute For Testing
 -----------------------------------
 */
 
-cron.schedule('*/1 * * * *', async () => {
+cron.schedule('*/30 * * * *', async () => {
 
     console.log('\nCron Triggered');
 
