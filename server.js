@@ -101,12 +101,9 @@ const client = new Client({
         clientId: 'main-client'
     }),
 
-   puppeteer: {
+  puppeteer: {
 
     headless: true,
-
-    executablePath:
-    puppeteer.executablePath(),
 
     args: [
 
@@ -125,7 +122,6 @@ const client = new Client({
     ]
 
 }
-
 });
 
 /*
@@ -201,7 +197,7 @@ Every 1 Minute For Testing
 -----------------------------------
 */
 
-cron.schedule('*/1 * * * *', async () => {
+cron.schedule('*/30 * * * *', async () => {
 
     console.log('\nCron Triggered');
 
